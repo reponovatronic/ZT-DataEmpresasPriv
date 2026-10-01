@@ -1,0 +1,85 @@
+# ============================================================
+# Python / Entorno virtual
+# ============================================================
+
+.venv/
+venv/
+env/
+
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+
+# ============================================================
+# Variables de entorno / Secretos
+# ============================================================
+
+.env
+.env.*
+!.env.example
+
+# ============================================================
+# Sistema / Editor
+# ============================================================
+
+.DS_Store
+.vscode/
+.idea/
+
+# ============================================================
+# Datos generados / Caché / Outputs
+# ============================================================
+
+data/cache/*
+data/raw/*
+data/processed/*
+data/output/*
+logs/*
+
+# Mantener carpetas vacías en Git
+!data/cache/.gitkeep
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/output/.gitkeep
+!logs/.gitkeep
+
+# ============================================================
+# HTML cacheado
+# ============================================================
+
+html_cache/
+**/html_cache/
+data/cache/html/
+
+# ============================================================
+# Reportes y archivos pesados
+# ============================================================
+
+*.xlsx
+*.xls
+*.csv
+*.zip
+*.tar.gz
+*.log
+
+# ============================================================
+# Playwright / testing
+# ============================================================
+
+test-results/
+playwright-report/
+.pytest_cache/
+
+# ============================================================
+# Excepciones
+# ============================================================
+
+!requirements.txt
+!README.md
+!MANUAL_USUARIO.md
+!ARQUITECTURA_DESARROLLO.md
+!FLUJO_SISTEMA.md
+!MANTENIMIENTO.md
+!EJECUCION_DIARIA_3_PROYECTOS.md
