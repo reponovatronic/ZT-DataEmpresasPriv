@@ -1,0 +1,24 @@
+providers:
+
+  serper:
+    enabled: true
+    priority: 1
+    api_key_env: SERPER_API_KEY
+
+  tavily:
+    enabled: true
+    priority: 2
+    api_key_env: TAVILY_API_KEY
+
+  exa:
+    enabled: true
+    priority: 3
+    api_key_env: EXA_API_KEY
+
+
+search:
+  max_results: 10
+  language: es
+  country: pe
+  fallback_on_error: true
+  fallback_on_no_results: true

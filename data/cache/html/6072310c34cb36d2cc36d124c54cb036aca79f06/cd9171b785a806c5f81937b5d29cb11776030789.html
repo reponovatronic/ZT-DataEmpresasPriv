@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es"  >
+    <head>
+                <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="description" content="En K-tuin Empresas adaptamos nuestra amplia oferta formativa a las necesidades de las pymes para ponerse en marcha, crecer y transformarse.">
+
+        <meta property="og:title" content="Formación para empresas | K-tuin Empresas"><meta property="og:description" content="En K-tuin Empresas adaptamos nuestra amplia oferta formativa a las necesidades de las pymes para ponerse en marcha, crecer y transformarse."><meta property="og:image" content="https://www.k-tuin.com/empresas/cms/uploads/ktuin_b2b_white.svg"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:site" content="https://www.k-tuin.com/empresas"><meta property="twitter:title" content="Formación para empresas | K-tuin Empresas"><meta property="twitter:description" content="En K-tuin Empresas adaptamos nuestra amplia oferta formativa a las necesidades de las pymes para ponerse en marcha, crecer y transformarse."><meta property="twitter:image" content="https://www.k-tuin.com/empresas/cms/uploads/ktuin_b2b_white.svg">
+        <meta name="keywords" content="">
+        <meta name="author" content="K-tuin Empresas">
+
+        
+                        <title>Formación para empresas | K-tuin Empresas</title>
+        
+        
+        <link rel="canonical" href="https://www.k-tuin.com/empresas/formacion-para-empresas/"><base href="https://www.k-tuin.com/empresas/" />
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <link rel="shortcut icon" href="/cms/uploads/favicon_2.ico" type="image/x-icon" />            <link rel="alternate" href="https://www.k-tuin.com/empresas/formacion-para-empresas/" hreflang="es" />
+                    	<link rel="stylesheet" href="https://www.k-tuin.com/empresas/template/estandar/css/minified/tailwind.min-hshtfpb3y.css"><script src='https://www.k-tuin.com/empresas/template/estandar/js/minified/httpVueLoader-hshs86l9o.js' ></script>        <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WP8CV2L');</script>
+<!-- End Google Tag Manager -->            <script>
+                var hooksToken = 'aa2e5d74a1de88311ec71c6560d5e16e840ac703';
+                var language = 'www';
+                class CmsApiClass {
+    constructor() {
+        this._traducciones = {};
+        this.loadingTraducciones = false;
+    }
+    hook(hook, data, callback,options = {}) {
+        try {
+            if (!hook) throw new Error("No se ha definido el endpoint del hook");
+            if (typeof data !== 'object' && typeof data !== 'null') throw new Error("Data no es un objeto, es un " + typeof data);
+            if(window.FORCE_BASE_DOMAIN && !hook.startsWith("http")) {
+                hook = window.FORCE_BASE_DOMAIN + hook;
+            }
+            return fetch(hook, {
+                method: 'post',
+                headers: new Headers({'X-Hooks-Token': hooksToken,'Content-Type': 'application/json', 'X-Acai-Accept-Language': language ? language : 'www'}),
+                body: JSON.stringify(data ? data : {}),
+                signal:options.signal
+            }).then(function (res) {
+                return res.json()
+            }).then(function (resJson) {
+                return typeof callback == 'function' ? callback(resJson) : resJson
+            })
+        } catch (error) {
+            console.error(error);
+            Promise.resolve(false)
+        }
+    }
+    getSignal(signalName) {
+        if(!this.signals[signalName] || (this.signals[signalName].signal.aborted)) {
+            const controller = new AbortController();
+            this.signals[signalName] = controller;
+        }
+        return this.signals[signalName];
+    }
+    t_var(text) {
+        let slug = CmsApi.slugify(text);
+        if(this._traducciones[slug]) {
+          return this._traducciones[slug];
+        }
+
+        // Lo creamos con el texto pasado para evitar múltiples llamadas.
+        this._traducciones[slug] = text;
+        if (this.loadingTraducciones) return this._traducciones[slug];
+
+        this.loadingTraducciones = true;
+        // Enviamos a crear la traducción
+        var signal = this.getSignal('traducciones');
+        let callback = (response) => {
+            this.loadingTraducciones = false;
+            if(response['success'] == true) {
+                this._traducciones = response['data'];
+                console.log("Traducciones cargadas");
+            } else {
+                console.error('Problema al crear textos generales: ', response);
+            }
+        }
+        try {
+            
+            var datatoSendToHook = { clave: slug, valor: text};
+            if (window.REMOTE_URL) datatoSendToHook.remote = window.REMOTE_URL;
+
+            this.hook('/hooks/traducciones/', datatoSendToHook,
+            callback,
+            {
+            //    signal:signal
+            });
+        } catch {
+            console.error('Problema al crear textos generales: ', text);
+        }
+        
+        return this._traducciones[slug];
+    }
+    translate(text) {
+        let slug = CmsApi.slugify(text);
+
+        return new Promise((resolve, reject) => {
+            if(this._traducciones[slug]) {
+              return resolve(this._traducciones[slug]);
+            }
+
+            // Lo creamos con el texto pasado para evitar múltiples llamadas.
+            this._traducciones[slug] = text;
+            if (this.loadingTraducciones) return this._traducciones[slug];
+
+            this.loadingTraducciones = true;
+            // Enviamos a crear la traducción
+            var signal = this.getSignal('traducciones');
+            try {
+                
+                var datatoSendToHook = { clave: slug, valor: text};
+                if (window.REMOTE_URL) datatoSendToHook.remote = window.REMOTE_URL;
+
+                return this.hook('/hooks/traducciones/', datatoSendToHook,
+                null,
+                {
+                //    signal:signal
+                }).then((response) => {
+                    return resolve(this._traducciones[slug]);
+                });
+            } catch {
+                console.error('Problema al crear textos generales: ', text);
+            }
+            return resolve(this._traducciones[slug]);
+        });
+    }
+    slugify(string) {
+        // str.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+        // https://stackoverflow.com/questions/990904/remove-accents-diacritics-in-a-string-in-javascript
+        const a = 'àáäâãåăæąçćčđďèéěėëêęğǵḧìíïîįłḿǹńňñòóöôœøṕŕřßşśšșťțùúüûǘůűūųẃẍÿýźžż·/_,:;'
+        const b = 'aaaaaaaaacccddeeeeeeegghiiiiilmnnnnooooooprrsssssttuuuuuuuuuwxyyzzz______'
+        const p = new RegExp(a.split('').join('|'), 'g')
+        
+        return string.toString().toLowerCase()
+            .replace(/\s+/g, '_') // Replace spaces with -
+            .replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
+            .replace(/&/g, '_and_') // Replace & with 'and'
+            .replace(/[^\w\-]+/g, '') // Remove all non-word characters
+            .replace(/\_\_+/g, '_') // Replace multiple - with single -
+            .replace(/^_+/, '') // Trim - from start of text
+            .replace(/_+$/, '') // Trim - from end of text
+            .toUpperCase()
+    }
+}
+var CmsApi = new CmsApiClass();
+CmsApi.signals = {};
+//if(language !== 'www') window.addEventListener("load", () => { CmsApi.t_var('');});
+
+            </script>
+                </head>
+        <body class=" antialiased">
+        
+        
+<!-- start_mod : custom-header-twig --> 
+<style>
+    body {
+        opacity: 0;
+        transition: all 0.4s ease-in-out;
+    }
+    .buscador_oculto{margin-top:8px;opacity:0;pointer-events:none;}
+
+</style><script type="text/javascript" charset="utf-8">
+const DOMINIO_A_AJUSTAR = "www.k-tuin.com";
+const PATH_INICIO = "/empresas";
+
+window.FORCE_DOMAIN_BASE = '';
+
+window.parseLink = function(link) {
+    if (link.startsWith("http")) { return link; }
+    //console.log('link parsed', link, (window.FORCE_DOMAIN_BASE ? window.FORCE_DOMAIN_BASE : '') + link);
+    return (window.FORCE_DOMAIN_BASE ? window.FORCE_DOMAIN_BASE : '') + link;
+}
+
+if (window.location.hostname === DOMINIO_A_AJUSTAR && window.location.pathname.startsWith(PATH_INICIO)) {
+    window.FORCE_DOMAIN_BASE = 'https://www.k-tuin.com/empresas';
+    window.FORCE_BASE_DOMAIN = 'https://www.k-tuin.com/empresas';
+    
+    const observer = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        for (const node of mutation.addedNodes) {
+          if (node.nodeType === 1) {
+            const attrs = ['src', 'href', 'data-src'];
+            attrs.forEach(attr => {
+              const val = node.getAttribute(attr);
+              if (val) {
+                const should_be_replace = val.startsWith('/template/') || val.startsWith('/cms/') || val.startsWith('/custom-builder-');
+                if (should_be_replace) {
+                  const newVal = window.FORCE_DOMAIN_BASE + val;
+                  node.setAttribute(attr, newVal);
+                  if (attr === 'src' || attr === 'href') {
+                    node[attr] = newVal;
+                  }
+                }
+              }
+            });
+          }
+        }
+      }
+    });
+    observer.observe(document.documentElement, { childList: true, subtree: true });
+    
+    if(window.httpVueLoader) {
+        let aux_httpVueLoader = window.httpVueLoader;
+        window.httpVueLoader = function(url,name) {
+            url = window.parseLink(url);
+            return aux_httpVueLoader(url, name);
+        }
+    }
+}
+</script><nav class="navbar-wrapper w-full z-50 transition3s shadow sticky top-0"><div class="bg-black"><div class="container mx-auto max-w-7xl px-4 lg:px-6 2xl:px-0 py-0.5 flex justify-between"><div class="flex items-center flex-shrink-0 mr-4"><a href="https://www.k-tuin.com/empresas/" aria-label="Inicio"><span class="sr-only"></span><img data-src="/cms/uploads/ktuin_b2b_white.svg" alt="" class="lazyload imagen_nav h-12 py-1 object-contain object-left" width="auto" height="auto"></a></div><ul class="flex flex-wrap justify-end sm:justify-start items-center gap-4 xl:gap-12 font-semibold"><li class="relative menu-item "><span class="text-white hover:text-main-color text-xs  transition3s cursor-pointer flex items-center gap-1 menu-parent py-2" data-enlace="https://www.k-tuin.com/" data-num="1"><a href="https://www.k-tuin.com/"><div class="sm:hidden text-sm">Ir a K-tuin.com &gt;</div><div class="hidden sm:block">Tienda online</div></a></span><ul class="menu-dropdown absolute left-0 top-full bg-white rounded-lg overflow-hidden border border-gray-300 shadow-lg min-w-48 opacity-0 invisible pointer-events-none transition-all duration-200" data-parent="1"></ul></li><li class="relative menu-item hidden sm:block"><span class="text-white hover:text-main-color text-xs  transition3s cursor-pointer flex items-center gap-1 menu-parent py-2" data-enlace="https://www.k-tuin.com/tiendas" data-num="10"><a href="https://www.k-tuin.com/tiendas"><div class="sm:hidden text-sm">Tiendas</div><div class="hidden sm:block">Tiendas</div></a></span><ul class="menu-dropdown absolute left-0 top-full bg-white rounded-lg overflow-hidden border border-gray-300 shadow-lg min-w-48 opacity-0 invisible pointer-events-none transition-all duration-200" data-parent="10"></ul></li><li class="relative menu-item hidden sm:block"><span class="text-white hover:text-main-color text-xs  transition3s cursor-pointer flex items-center gap-1 menu-parent py-2" data-enlace="https://www.k-tuin.com/empresas" data-num="2"><a href="https://www.k-tuin.com/empresas"><div class="sm:hidden text-sm">Empresas</div><div class="hidden sm:block">Empresas</div></a></span><ul class="menu-dropdown absolute left-0 top-full bg-white rounded-lg overflow-hidden border border-gray-300 shadow-lg min-w-48 opacity-0 invisible pointer-events-none transition-all duration-200" data-parent="2"></ul></li><li class="relative menu-item hidden sm:block"><span class="text-white hover:text-main-color text-xs  transition3s cursor-pointer flex items-center gap-1 menu-parent py-2" data-enlace="#educacion" data-num="3"><span href="#educacion"><div class="sm:hidden text-sm">Educación</div><div class="hidden sm:block">Educación</div></span></span><ul class="menu-dropdown absolute left-0 top-full bg-white rounded-lg overflow-hidden border border-gray-300 shadow-lg min-w-48 opacity-0 invisible pointer-events-none transition-all duration-200" data-parent="3"><li class=""><a href="https://www.k-tuin.com/educacion" class="block bg-white text-black hover:text-main-color text-xs whitespace-nowrap transition3s px-4 py-2"> Soluciones Apple para el sector educativo</a></li><li class=" border-t border-gray-300"><a href="https://www.k-tuin.com/colegios/customer/account/login" class="block bg-white text-black hover:text-main-color text-xs whitespace-nowrap transition3s px-4 py-2"> Zona de compras para padres</a></li></ul></li><li class="relative menu-item hidden sm:block"><span class="text-white hover:text-main-color text-xs  transition3s cursor-pointer flex items-center gap-1 menu-parent py-2" data-enlace="https://www.k-tuin.com/formacion" data-num="6"><a href="https://www.k-tuin.com/formacion"><div class="sm:hidden text-sm">Formación</div><div class="hidden sm:block">Formación</div></a></span><ul class="menu-dropdown absolute left-0 top-full bg-white rounded-lg overflow-hidden border border-gray-300 shadow-lg min-w-48 opacity-0 invisible pointer-events-none transition-all duration-200" data-parent="6"></ul></li><li class="relative menu-item hidden sm:block"><span class="text-white hover:text-main-color text-xs  transition3s cursor-pointer flex items-center gap-1 menu-parent py-2" data-enlace="#reparaciones" data-num="9"><span href="#reparaciones"><div class="sm:hidden text-sm">Servicio técnico</div><div class="hidden sm:block">Servicio técnico</div></span></span><ul class="menu-dropdown absolute left-0 top-full bg-white rounded-lg overflow-hidden border border-gray-300 shadow-lg min-w-48 opacity-0 invisible pointer-events-none transition-all duration-200" data-parent="9"><li class=""><a href="https://www.k-tuin.com/reparaciones" class="block bg-white text-black hover:text-main-color text-xs whitespace-nowrap transition3s px-4 py-2"> Solicitar reparación</a></li><li class=" border-t border-gray-300"><a href="https://www.k-tuin.com/estado-reparacion" class="block bg-white text-black hover:text-main-color text-xs whitespace-nowrap transition3s px-4 py-2"> Estado de mi reparación</a></li><li class=" border-t border-gray-300"><a href="https://getsupport.apple.com/" class="block bg-white text-black hover:text-main-color text-xs whitespace-nowrap transition3s px-4 py-2"> Pedir cita <svg class="h-4 float-left -ml-2" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6"></path><path d="M11 13l9 -9"></path><path d="M15 4h5v5"></path></svg></a></li></ul></li><li class="relative menu-item hidden sm:block"><span class="text-white hover:text-main-color text-xs  transition3s cursor-pointer flex items-center gap-1 menu-parent py-2" data-enlace="https://www.k-tuin.com/blog/" data-num="11"><a href="https://www.k-tuin.com/blog/"><div class="sm:hidden text-sm">Blog</div><div class="hidden sm:block">Blog</div></a></span><ul class="menu-dropdown absolute left-0 top-full bg-white rounded-lg overflow-hidden border border-gray-300 shadow-lg min-w-48 opacity-0 invisible pointer-events-none transition-all duration-200" data-parent="11"></ul></li></ul></div></div><script>
+        const activarAnimaciones = 0 
+        const userIsLoggedIn = false;
+   </script><div class="bg-white"><div class="container mx-auto max-w-7xl px-4 lg:px-6 2xl:px-0 flex flex-col items-center justify-between flex-wrap relative"><div class="w-full flex items-center justify-between flex-shrink-0"><div class="block w-1/4 lg:hidden flex justify-start lg:justify-end"><div id="openNavbar"><span></span><span></span><span></span><span></span></div></div><div class="navbar w-full items-center hidden lg:w-auto lg:flex justify-between"><ul class="w-full text-md lg:flex-grow text-center lg:text-right lg:flex lg:justify-end items-center -mx-4"><li class="cursor-pointer block lg:inline-block mx-0 lg:mx-4 relative transition3s"><div class="relative"><button type="button" class="dropdown-toggle w-full flex justify-center lg.justify-start items-center transition3s hover:text-main-color"><svg xmlns="http://www.w3.org/2000/svg" class="lg:hidden flex-shrink-0 transition3s icon icon-tabler icon-tabler-chevron-down mr-1" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><polyline points="6 9 12 15 18 9"></polyline></svg><span>Soluciones</span><svg xmlns="http://www.w3.org/2000/svg" class="hidden lg:block flex-shrink-0 transition3s icon icon-tabler icon-tabler-chevron-down ml-1" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><polyline points="6 9 12 15 18 9"></polyline></svg></button><div class="dropdown lg:absolute max-h-0 rounded overflow-hidden transition3s z-10"><div class="mt-2 lg:mt-6"><ul class="lg:rounded overflow-hidden lg:border lg:border-gray-400 grid gap-1 lg:gap-0"><li class=""><a class="block bg-white hover:bg-white hover:text-black text-xs lg:text-sm text-center lg:text-left rounded lg:rounded-none whitespace-nowrap px-4 py-2 transition3s" href="https://www.k-tuin.com/empresas/infraestructura-it/">Infraestructura IT</a></li><li class=" lg:border-t lg:border-gray-400"><a class="block bg-white hover:bg-white hover:text-black text-xs lg:text-sm text-center lg:text-left rounded lg:rounded-none whitespace-nowrap px-4 py-2 transition3s" href="https://www.k-tuin.com/empresas/movilidad/">Movilidad</a></li><li class=" lg:border-t lg:border-gray-400"><a class="block bg-white hover:bg-white hover:text-black text-xs lg:text-sm text-center lg:text-left rounded lg:rounded-none whitespace-nowrap px-4 py-2 transition3s" href="https://www.k-tuin.com/empresas/seguridad-informatica/">Seguridad</a></li><li class=" lg:border-t lg:border-gray-400"><a class="block bg-white hover:bg-white hover:text-black text-xs lg:text-sm text-center lg:text-left rounded lg:rounded-none whitespace-nowrap px-4 py-2 transition3s" href="https://www.k-tuin.com/empresas/continuidad-de-negocio/">Continuidad de negocio</a></li><li class=" lg:border-t lg:border-gray-400"><a class="block bg-white hover:bg-white hover:text-black text-xs lg:text-sm text-center lg:text-left rounded lg:rounded-none whitespace-nowrap px-4 py-2 transition3s" href="https://www.k-tuin.com/empresas/jamf-pro/">Gestión de dispositivos</a></li><li class=" lg:border-t lg:border-gray-400"><a class="block bg-white hover:bg-white hover:text-black text-xs lg:text-sm text-center lg:text-left rounded lg:rounded-none whitespace-nowrap px-4 py-2 transition3s" href="https://www.k-tuin.com/empresas/monitores-profesionales-eizo/">Monitores profesionales EIZO</a></li><li class=" lg:border-t lg:border-gray-400"><a class="block bg-white hover:bg-white hover:text-black text-xs lg:text-sm text-center lg:text-left rounded lg:rounded-none whitespace-nowrap px-4 py-2 transition3s" href="https://www.k-tuin.com/empresas/apps-a-medida/">Apps a medida</a></li></ul></div></div></div></li><li class="cursor-pointer block lg:inline-block mx-0 lg:mx-4 relative transition3s"><div class="relative"><a href="https://www.k-tuin.com/empresas/renting-apple/" class="block lg:inline-block hover:text-main-color py-2">Renting Apple</a></div></li><li class="cursor-pointer block lg:inline-block mx-0 lg:mx-4 relative transition3s"><div class="relative"><a href="https://www.k-tuin.com/empresas/soporte-tecnico-empresas/" class="block lg:inline-block hover:text-main-color py-2">Soporte Técnico</a></div></li><li class="cursor-pointer block lg:inline-block mx-0 lg:mx-4 relative transition3s"><div class="relative"><a href="https://www.k-tuin.com/empresas/formacion-para-empresas/" class="block lg:inline-block hover:text-main-color py-2 font-bold relative customBottomBorder">Formación para empresas</a></div></li><li class="cursor-pointer block lg:inline-block mx-0 lg:mx-4 relative transition3s"><div class="relative"><a href="https://www.k-tuin.com/empresas/contacto/" class="block lg:inline-block hover:text-main-color py-2">Contacto</a></div></li></ul></div><div><ul class="flex justify-between items-center text-lg lg:flex-grow lg:text-right"><li class="px-4 py-2 border rounded-xl hover:bg-black bg-main-color text-white block text-xs focus:outline-none click-a-child cursor-pointer"><a class="flex items-center justify-center select-none " href="https://www.k-tuin.com/empresas/login/"><svg width="19" height="19" viewBox="0 0 19 19" fill="none" class="w-5 h-5 mr-2 text-white fill-current" xmlns="http://www.w3.org/2000/svg"><path d="M9.49121 0.75C4.66121 0.75 0.741211 4.67 0.741211 9.5C0.741211 14.33 4.66121 18.25 9.49121 18.25C14.3212 18.25 18.2412 14.33 18.2412 9.5C18.2412 4.67 14.3212 0.75 9.49121 0.75ZM12.65 6.2975C13.5862 6.2975 14.3387 7.05 14.3387 7.98625C14.3387 8.9225 13.5862 9.675 12.65 9.675C11.7137 9.675 10.9612 8.9225 10.9612 7.98625C10.9525 7.05 11.7137 6.2975 12.65 6.2975ZM7.39996 4.915C8.53746 4.915 9.46496 5.8425 9.46496 6.98C9.46496 8.1175 8.53746 9.045 7.39996 9.045C6.26246 9.045 5.33496 8.1175 5.33496 6.98C5.33496 5.83375 6.25371 4.915 7.39996 4.915ZM7.39996 12.9037V16.185C5.29996 15.5287 3.63746 13.91 2.90246 11.845C3.82121 10.865 6.11371 10.3662 7.39996 10.3662C7.86371 10.3662 8.44996 10.4362 9.06246 10.5587C7.62746 11.32 7.39996 12.3262 7.39996 12.9037ZM9.49121 16.5C9.25496 16.5 9.02746 16.4912 8.79996 16.465V12.9037C8.79996 11.6612 11.3725 11.04 12.65 11.04C13.5862 11.04 15.205 11.3812 16.01 12.0462C14.9862 14.645 12.4575 16.5 9.49121 16.5Z"></path></svg><span class="ml-1 text-xs">Área privada</span></a></li></ul></div></div></div><section id="appBuscador" class="bg-white flex flex-col fixed top-0 h-full overflow-y-scroll  transition3s w-full left-0 z-10 buscador_toggle buscador_oculto"><div class="bg-black text-white sticky top-0 z-10 flex-shrink-0"><div class="container max-w-7xl px-4 lg:px-0 py-3 mx-auto"><div class="lg:px-4 w-full flex flex-col lg:flex-row justify-between"><div class="w-40 flex-shrink-0 relative h-12 lg:h-auto mb-4 lg:mb-0"><img src="/cms/uploads/ktuin_b2b_white.svg" alt="K-tuin Empresas" class="absolute top-0 left-0 w-full h-full object-contain object-left-center"></div><div class="w-4 flex-shrink-0 hidden lg:block"></div><div class="w-full flex justify-between"><div class="w-full p-3 border flex border-white bg-white rounded-l-lg lg:rounded-lg"><input type="text" ref="termInput" class="text-black appearance-none text-lg w-full" placeholder="Escribe el término a buscar" v-model="searchTerm"><svg xmlns="http://www.w3.org/2000/svg" @click="resetSearch" v-if="searchTerm" class="text-black cursor-pointer hover:text-gray-600 icon icon-tabler w-8 h-8 fill-current flex-shrink-0  icon-tabler-backspace-filled" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#597e8d" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M20 5a2 2 0 0 1 1.995 1.85l.005 .15v10a2 2 0 0 1 -1.85 1.995l-.15 .005h-11a1 1 0 0 1 -.608 -.206l-.1 -.087l-5.037 -5.04c-.809 -.904 -.847 -2.25 -.083 -3.23l.12 -.144l5 -5a1 1 0 0 1 .577 -.284l.131 -.009h11zm-7.489 4.14a1 1 0 0 0 -1.301 1.473l.083 .094l1.292 1.293l-1.292 1.293l-.083 .094a1 1 0 0 0 1.403 1.403l.094 -.083l1.293 -1.292l1.293 1.292l.094 .083a1 1 0 0 0 1.403 -1.403l-.083 -.094l-1.292 -1.293l1.292 -1.293l.083 -.094a1 1 0 0 0 -1.403 -1.403l-.094 .083l-1.293 1.292l-1.293 -1.292l-.094 -.083l-.102 -.07z" stroke-width="0" fill="currentColor"></path></svg></div><div class="w-4 flex-shrink-0 hidden lg:block"></div><button @click="cerrar" class="p-3 border border-main-color-light hover:border-main-color-dark hover:bg-main-color-dark bg-main-color text-white rounded-r-lg lg:rounded-lg flex-shrink-0">Cerrar</button></div></div></div></div><div class="container max-w-7xl px-4 lg:px-0 pb-6 lg:pb-10 mx-auto relative h-full"><div id="searchDataResult" ref="searchDataResult" class="h-full w-full"><div v-if="!loading &amp;&amp; !searchTerm" class="w-full h-full flex justify-center items-center"><div class="flex flex-col max-w-4xl items-center text-gray-600 text-xl"><img src="https://www.k-tuin.com/empresas/template/estandar/images/buscador-700-s9j96u.webp" alt="" class="max-w-full mb-6"></div></div><div v-if="loading &amp;&amp; searchTerm" class="w-full h-full flex justify-center items-center"><div class="flex flex-col max-w-4xl items-center text-xl"> Cargando resultados...</div></div><div v-if="productos &amp;&amp; searchTerm" class="filter hidden px-2 flex flex-col sm:flex-row justify-center mb-10 sm:-mx-2"><div class="w-full sm:w-1/2 xl:max-w-xs py-2 px-4 border border-gray-400 bg-transparent rounded justify-between items-center flex mt-2 sm:mt-0 sm:mx-2"><select name="order" onchange="searchDataApp.order = this.value" class="w-full appearance-none bg-transparent pr-2 truncate text-sm"><option value="">Ordenar por Relevancia</option><option value="1">Precio de menor a mayor</option><option value="2">Precio de mayor a menor</option></select><svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#597e8d" fill="none" stroke-linecap="round" stroke-linejoin="round" class="inline-block icon icon-tabler icon-tabler-chevron-down w-6 h-6 stroke-current flex-shrink-0 block"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M6 9l6 6l6 -6"></path></svg></div><div class="w-full sm:w-1/2 xl:max-w-xs py-2 px-4 border border-gray-400 bg-transparent rounded justify-between items-center flex mt-2 sm:mt-0 sm:mx-2"><select name="category" onchange="searchDataApp.category = this.value" class="w-full appearance-none bg-transparent pr-2 truncate text-sm"><option value="">Categoría</option></select><svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#597e8d" fill="none" stroke-linecap="round" stroke-linejoin="round" class="inline-block icon icon-tabler icon-tabler-chevron-down w-6 h-6 stroke-current flex-shrink-0 block"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M6 9l6 6l6 -6"></path></svg></div></div><div v-if="productos &amp;&amp; searchTerm" class="mt-4 w-full h-full" :class="{'opacity-25':loading}"><div class="filter flex flex-col lg:flex-row lg:px-4" v-if="categorias &amp;&amp; productos &amp;&amp; !loading"><div class="w-full border border-black rounded-lg overflow-hidden bg-white relative flex justify-between"><select v-model="ordenar" class="p-4 pr-16 appearance-none w-full "><option v-for="orden in ordenes" :value="orden.num">Ordenar por : ${ orden.name }</option></select><div class="absolute top-0 right-0 h-full flex items-center pointer-events-none justify-center w-16 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 stroke-current icon icon-tabler icon-tabler-chevron-down" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#597e8d" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M6 9l6 6l6 -6"></path></svg></div></div><div class="w-4 flex-shrink-0 hidden lg:block"></div><div class="mt-2 lg:mt-0 w-full border border-black rounded-lg overflow-hidden bg-white relative flex justify-between"><select v-model="category" class="p-4 pr-16 appearance-none w-full "><option value="">Todas las categorías</option><option v-for="categoria in categorias" :value="categoria.num">${ categoria.name }</option></select><div class="absolute top-0 right-0 h-full flex items-center pointer-events-none justify-center w-16 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 stroke-current icon icon-tabler icon-tabler-chevron-down" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#597e8d" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M6 9l6 6l6 -6"></path></svg></div></div></div><ul v-if="productos.length> 0" class="mt-4 lg:mt-0 w-full mb-8 flex flex-wrap justify-start"> <li v-for="producto in productos" class="lg:px-4 w-1/2 lg:w-1/3 flex flex-wrap"><div v-html="producto.html" class="group overflow-hidden border lg:border-none lg:shadow lg:rounded-md flex cursor-pointer click-a-child px-2 lg:px-4 my-0 lg:my-6 w-full"></div></li></ul><div v-else-if="productos != null &amp;&amp; !loading" class="w-full h-full flex justify-center items-center"><div class="flex flex-col max-w-4xl items-center text-xl"><img src="https://www.k-tuin.com/empresas/template/estandar/images/notfound2-800-s9j9f6.webp" alt="" class="max-w-full mb-6"></div></div><div v-if="porpagina &amp;&amp; productos.length &amp;&amp; totalPaginas> 1" class="flex items-center justify-center w-full py-4 px-2 text-gray-700"> <button @click="prevPage" v-if="pagina> 1" class="text-xs px-2 py-1 border border-gray-400 rounded mr-2 hover:bg-gray-300">Anterior</button><button @click="page(1)" v-if="pagina> 2" class="text-xs px-2 py-1 border border-gray-400 rounded mr-2 hover:bg-gray-300">1..</button><button @click="prevPage" v-if="pagina> 1" class="text-xs px-2 py-1 border border-gray-400 rounded mr-2 hover:bg-gray-300">${pagina - 1}</button><button class="text-xs px-2 py-1 border border-gray-400 rounded  mr-2 hover:bg-gray-300 bg-black text-white">${pagina}</button><button @click="nextPage" v-if="pagina <totalPaginas" class="text-xs px-2 py-1 border border-gray-400 rounded  mr-2 hover:bg-gray-300">${pagina + 1}</button><button @click="page(totalPaginas)" v-if="pagina <(totalPaginas - 1)" class="text-xs px-2 py-1 border border-gray-400 rounded  mr-2 hover:bg-gray-300">..${totalPaginas}</button><button @click="nextPage" v-if="pagina <totalPaginas" class="text-xs px-2 py-1 border border-gray-400 rounded  mr-2 hover:bg-gray-300">Siguiente</button></div></div></div></div></section></div></nav><div class="menu-container z-40 lg:hidden" id="menuContainer"><ul class="flex flex-col"></ul><ul class="flex flex-col items-center lg:flex-row flex-wrap justify-center px-4 py-2"><li class="cursor-pointer block lg:inline-block mx-0 lg:mx-4 relative transition3s"><div class="relative"><button type="button" class="dropdown-toggle py-2 w-full flex justify-center lg.justify-start items-center transition3s hover:text-main-color"><svg xmlns="http://www.w3.org/2000/svg" class="lg:hidden flex-shrink-0 transition3s icon icon-tabler icon-tabler-chevron-down mr-1" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><polyline points="6 9 12 15 18 9"></polyline></svg><span>Soluciones</span><span class="mx-4 text-main-color hidden lg:inline-block">|</span><svg xmlns="http://www.w3.org/2000/svg" class="hidden lg:block flex-shrink-0 transition3s icon icon-tabler icon-tabler-chevron-down ml-1" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><polyline points="6 9 12 15 18 9"></polyline></svg></button><div class="dropdown lg:absolute max-h-0 rounded overflow-hidden transition3s z-10"><div class="mt-2 lg:mt-6"><ul class="lg:rounded overflow-hidden lg:border lg:border-gray-400 grid gap-1 lg:gap-0"><li class=""><a class="block bg-white hover:bg-black hover:text-white text-xs lg:text-sm text-center lg:text-left rounded lg:rounded-none whitespace-nowrap px-4 py-2 transition3s" href="https://www.k-tuin.com/empresas/infraestructura-it/">Infraestructura IT</a></li><li class=" lg:border-t lg:border-gray-400"><a class="block bg-white hover:bg-black hover:text-white text-xs lg:text-sm text-center lg:text-left rounded lg:rounded-none whitespace-nowrap px-4 py-2 transition3s" href="https://www.k-tuin.com/empresas/movilidad/">Movilidad</a></li><li class=" lg:border-t lg:border-gray-400"><a class="block bg-white hover:bg-black hover:text-white text-xs lg:text-sm text-center lg:text-left rounded lg:rounded-none whitespace-nowrap px-4 py-2 transition3s" href="https://www.k-tuin.com/empresas/seguridad-informatica/">Seguridad</a></li><li class=" lg:border-t lg:border-gray-400"><a class="block bg-white hover:bg-black hover:text-white text-xs lg:text-sm text-center lg:text-left rounded lg:rounded-none whitespace-nowrap px-4 py-2 transition3s" href="https://www.k-tuin.com/empresas/continuidad-de-negocio/">Continuidad de negocio</a></li><li class=" lg:border-t lg:border-gray-400"><a class="block bg-white hover:bg-black hover:text-white text-xs lg:text-sm text-center lg:text-left rounded lg:rounded-none whitespace-nowrap px-4 py-2 transition3s" href="https://www.k-tuin.com/empresas/jamf-pro/">Gestión de dispositivos</a></li><li class=" lg:border-t lg:border-gray-400"><a class="block bg-white hover:bg-black hover:text-white text-xs lg:text-sm text-center lg:text-left rounded lg:rounded-none whitespace-nowrap px-4 py-2 transition3s" href="https://www.k-tuin.com/empresas/monitores-profesionales-eizo/">Monitores profesionales EIZO</a></li><li class=" lg:border-t lg:border-gray-400"><a class="block bg-white hover:bg-black hover:text-white text-xs lg:text-sm text-center lg:text-left rounded lg:rounded-none whitespace-nowrap px-4 py-2 transition3s" href="https://www.k-tuin.com/empresas/apps-a-medida/">Apps a medida</a></li></ul></div></div></div></li><li class="cursor-pointer block lg:inline-block mx-0 lg:mx-4 relative transition3s"><div class="relative"><a href="https://www.k-tuin.com/empresas/renting-apple/" class="block lg:inline-block hover:text-main-color py-2"> Renting Apple <span class="mx-4 text-main-color hidden lg:inline-block">|</span></a></div></li><li class="cursor-pointer block lg:inline-block mx-0 lg:mx-4 relative transition3s"><div class="relative"><a href="https://www.k-tuin.com/empresas/soporte-tecnico-empresas/" class="block lg:inline-block hover:text-main-color py-2"> Soporte Técnico <span class="mx-4 text-main-color hidden lg:inline-block">|</span></a></div></li><li class="cursor-pointer block lg:inline-block mx-0 lg:mx-4 relative transition3s"><div class="relative"><a href="https://www.k-tuin.com/empresas/formacion-para-empresas/" class="block lg:inline-block hover:text-main-color py-2 font-bold relative customBottomBorder"> Formación para empresas <span class="mx-4 text-main-color hidden lg:inline-block">|</span></a></div></li><li class="cursor-pointer block lg:inline-block mx-0 lg:mx-4 relative transition3s"><div class="relative"><a href="https://www.k-tuin.com/empresas/contacto/" class="block lg:inline-block hover:text-main-color py-2"> Contacto</a></div></li></ul></div><script type="text/javascript">
+    let idioma = '';
+</script><div></div><div class='wrapperDataResults'>
+<!-- end_mod -->
+        
+<!-- start_mod : generalesbannerpublicitario_rb9jji --> 
+<section id="id_c3f41" style="background-color:transparent" class="relative"><span id="c3f41"></span><div class="relative lg:rounded-xl overflow-hidden container max-w-7xl mx-auto px-4 2xl:px-0"><img data-src="/cms/uploads/imgi_3_10581enx3fur_1_formacion_para_empresas.webp" alt="Primer plano de manos escribiendo en un iPad con teclado, representando formación empresarial y aprendizaje digital." class="absolute top-0 left-0 w-full h-full object-cover object-center lazyload contrast-100"><div style="background-color:transparent" class="absolute top-0 left-0 w-full h-full opacity-10"></div><div class="relative px-6 py-16" style="color:white"><div class="flex flex-col lg:max-w-2xl items-start text-left"><div class="flex flex-col"></div><div data-aos="zoom-in" data-aos-duration="500"><H1 class="font-bold text-3xl lg:text-6xl">Formación tecnológica</H1></div><div data-aos="fade-up" data-aos-duration="500"></div></div></div></div></section>
+<!-- end_mod -->
+<!-- start_mod : textorecuadros_d7c6gg --> 
+<section id="id_abba6" class="relative" style="background-color:transparent"><span id="abba6"></span><div class="container max-w-7xl px-6 2xl:px-0 py-10 lg:py-20 mx-auto"><div class=" flerx flex-col items-center"><div class="flex flex-col"><div style="color:#111827"><H2 class="text-4xl lg:text-5xl font-semibold text-center" c-if="titulo">Programas de formación tecnológica para equipos, adaptados a las necesidades de tu pyme</H2></div></div></div><div class="max-w-4xl mx-auto mt-12"><ul class="flex flex-wrap justify-center md:-mx-4"></ul></div><div class="max-w-2xl mx-auto text-center mt-10"><div class="wysiwyg" style="color:#93a5b7"><h3 class="text-2xl m-0 mb-3" style="text-align:center;">Ayudamos a tu empresa a formar a sus equipos desde los primeros pasos hasta la especialización, con programas guiados, prácticos y adaptables a cada necesidad, herramienta y perfil profesional.</h3></div></div></div></section>
+<!-- end_mod -->
+<!-- start_mod : generaltarjetaspersonalizables_qyjro --> 
+<section id="id_" class="relative bg-gray-100"><div class="relative container mx-auto max-w-7xl px-6 2xl:px-0 py-10"><div class="flex justify-center flex-wrap gap-8 tres-columnas"><div style="height:fit-content;" class="click-a-child cursor-pointer tarjeta rounded-3xl px-6 py-4 relative group hover:shadow-xl transition3s bg-white "><div class="relative flex flex-col items-center"><h3 class="text-3xl font-medium mb-4 text-center">Adopción y primeros pasos</h3><p class="text-lg mb-4 text-center">Ayudamos a tu equipo a empezar a usar nuevas herramientas o tecnologías con más seguridad, menos fricción y una curva de aprendizaje más clara desde el principio.</p></div></div><div style="height:fit-content;" class="click-a-child cursor-pointer tarjeta rounded-3xl px-6 py-4 relative group hover:shadow-xl transition3s bg-white "><div class="relative flex flex-col items-center"><h3 class="text-3xl font-medium mb-4 text-center">Productividad y uso avanzado</h3><p class="text-lg mb-4 text-center">Formamos a tus empleados para que aprovechen mejor las herramientas que ya utilizan, trabajen con más agilidad y saquen más partido a su entorno tecnológico.</p></div></div><div style="height:fit-content;" class="click-a-child cursor-pointer tarjeta rounded-3xl px-6 py-4 relative group hover:shadow-xl transition3s bg-white "><div class="relative flex flex-col items-center"><h3 class="text-3xl font-medium mb-4 text-center">Especialización y actualización profesional</h3><p class="text-lg mb-4 text-center">Diseñamos programas para perfiles que necesitan profundizar, especializarse o mantenerse al día en herramientas y entornos profesionales concretos.</p></div></div></div></div></section>
+<!-- end_mod --><div class=" lg:-mt-10"></div>
+<!-- start_mod : generaltextotitular_xk9w7 --> 
+<section id="id_da411" class="relative" style="background-color:transparent"><span id="da411"></span><div class="container max-w-7xl px-6 2xl:px-0 py-10 lg:py-20 mx-auto"><div class="flex flex-col items-center max-w-2xl mx-auto text-center"><div style="color:#111827"></div></div><div class="wysiwyg lg:text-lg max-w-4xl mx-auto mt-10" style="color:#111827"><p>Nuestros programas de formación tecnológica están pensados para ayudar a tu empresa en todo el ciclo formativo del equipo: desde la adopción inicial de una herramienta hasta la mejora del uso, la especialización profesional y la actualización continua.</p><p> </p><ul><li class="relative ml-5 list-disc">Programas adaptables a cada empresa</li><li class="relative ml-5 list-disc">Formación sobre herramientas y necesidades concretas</li><li class="relative ml-5 list-disc">Enfoque práctico y orientado al día a día</li><li class="relative ml-5 list-disc">Seguimiento para reforzar la adopción real</li></ul></div></div></section>
+<!-- end_mod --><div class=" lg:-mt-36"></div>
+<!-- start_mod : iniciotarjetasinformativas_q5ivta --> 
+<section id="id_b859f" class="relative"><span id="b859f"></span><div class="container max-w-7xl px-6 2xl:px-0 py-10 lg:py-20 mx-auto"><div class="my-8"><ul class="flex flex-wrap justify-center -mx-4 -mb-4"><li class="w-full lg:w-1/2 px-4 mb-4 flex"><div class="px-4 py-10 rounded-xl shadow-xl relative w-full overflow-hidden cursor-pointer click-a-child"><div class="absolute top-0 left-0 w-full h-full bg-white bg-opacity-90 z-10"></div><img data-src="/cms/uploads/imgi_9_png_cursos_ecosistema_apple_v2.webp" alt="" class="absolute top-0 left-0 w-full h-full object-cover object-center lazyload"><div class="flex flex-col items-center text-center relative z-20 h-full w-full lg:w-2/3 mx-auto p-4"><div class="text-main-color text-2xl lg:text-3xl font-medium mb-2"> Ecosistema Apple</div><a class="mt-auto py-2 px-4 bg-white text-black border border-black hover:bg-black hover:text-white rounded-xl transition3s" href="https://www.k-tuin.com/empresas/cursos/apple">Ver cursos</a></div></div></li><li class="w-full lg:w-1/2 px-4 mb-4 flex"><div class="px-4 py-10 rounded-xl shadow-xl relative w-full overflow-hidden cursor-pointer click-a-child"><div class="absolute top-0 left-0 w-full h-full bg-white bg-opacity-90 z-10"></div><img data-src="/cms/uploads/imgi_10_png_cursos_adobe_3d.webp" alt="" class="absolute top-0 left-0 w-full h-full object-cover object-center lazyload"><div class="flex flex-col items-center text-center relative z-20 h-full w-full lg:w-2/3 mx-auto p-4"><div class="text-main-color text-2xl lg:text-3xl font-medium mb-2"> Adobe</div><a class="mt-auto py-2 px-4 bg-white text-black border border-black hover:bg-black hover:text-white rounded-xl transition3s" href="https://www.k-tuin.com/empresas/cursos/adobe">Ver cursos</a></div></div></li><li class="w-full lg:w-1/2 px-4 mb-4 flex"><div class="px-4 py-10 rounded-xl shadow-xl relative w-full overflow-hidden cursor-pointer click-a-child"><div class="absolute top-0 left-0 w-full h-full bg-white bg-opacity-90 z-10"></div><img data-src="/cms/uploads/imgi_11_png_cursos_microsoft.webp" alt="" class="absolute top-0 left-0 w-full h-full object-cover object-center lazyload"><div class="flex flex-col items-center text-center relative z-20 h-full w-full lg:w-2/3 mx-auto p-4"><div class="text-main-color text-2xl lg:text-3xl font-medium mb-2"> Microsoft</div><a class="mt-auto py-2 px-4 bg-white text-black border border-black hover:bg-black hover:text-white rounded-xl transition3s" href="https://www.k-tuin.com/empresas/cursos/microsoft">Ver cursos</a></div></div></li><li class="w-full lg:w-1/2 px-4 mb-4 flex"><div class="px-4 py-10 rounded-xl shadow-xl relative w-full overflow-hidden cursor-pointer click-a-child"><div class="absolute top-0 left-0 w-full h-full bg-white bg-opacity-90 z-10"></div><img data-src="/cms/uploads/imgi_12_png_mas_cursos.webp" alt="" class="absolute top-0 left-0 w-full h-full object-cover object-center lazyload"><div class="flex flex-col items-center text-center relative z-20 h-full w-full lg:w-2/3 mx-auto p-4"><div class="text-main-color text-2xl lg:text-3xl font-medium mb-2"> Otras Áreas</div><a class="mt-auto py-2 px-4 bg-white text-black border border-black hover:bg-black hover:text-white rounded-xl transition3s" href="https://www.k-tuin.com/empresas/cursos/otras-areas">Ver cursos</a></div></div></li></ul></div></div></section>
+<!-- end_mod -->
+<!-- start_mod : inicioformaciones_daxyp --> 
+<section id="id_a048a" class="relative"><span id="a048a"></span><div class="w-full h-full absolute top-0 left-0"><img data-src="/cms/uploads/Rectangle_13_1__1400_s92n21_1.webp" alt="" class="w-full h-full object-cover object-center lazyload "></div><div class="container max-w-7xl px-6 2xl:px-0 py-10 lg:py-20 mx-auto relative z-20"><div class="flex flex-col items-center max-w-2xl mx-auto text-center"><span class="text-xl lg:text-2xl customGradientText mb-2"> Somos el motor de su proyecto</span><H2 class="text-4xl lg:text-5xl font-bold" c-if="titulo">La formación que impulsa tu negocio</H2></div><div class="my-12"><ul class="flex flex-wrap -mx-4 -mb-4"><li class="w-full md:w-1/2 lg:w-1/4 px-4 mb-4"><div class="flex flex-col items-center text-center"><img src="/cms/uploads/formacion1_300_s8yak0_1.webp" alt="" class="w-10 h-10 object-contain mb-4"><div class="text-main-color font-medium text-xl mb-4"> Formación a medida</div><div class="text-gray-500"></div></div></li><li class="w-full md:w-1/2 lg:w-1/4 px-4 mb-4"><div class="flex flex-col items-center text-center"><img src="/cms/uploads/formacion2_300_s8yakn.webp" alt="" class="w-10 h-10 object-contain mb-4"><div class="text-main-color font-medium text-xl mb-4"> Formación en Streaming</div><div class="text-gray-500"></div></div></li><li class="w-full md:w-1/2 lg:w-1/4 px-4 mb-4"><div class="flex flex-col items-center text-center"><img src="/cms/uploads/formacion3_300_s8yal0_1.webp" alt="" class="w-10 h-10 object-contain mb-4"><div class="text-main-color font-medium text-xl mb-4"> Formación One to One</div><div class="text-gray-500"></div></div></li><li class="w-full md:w-1/2 lg:w-1/4 px-4 mb-4"><div class="flex flex-col items-center text-center"><img src="/cms/uploads/formacion4_300_s8yalg_1.webp" alt="" class="w-10 h-10 object-contain mb-4"><div class="text-main-color font-medium text-xl mb-4"> Formación de calendario</div><div class="text-gray-500"></div></div></li></ul></div><div class="flex justify-center my-4"><a class="py-2 px-4 bg-white text-black border border-black hover:bg-black hover:text-white rounded-xl shadow transition3s" href="#bccc0">Consúltanos</a></div></div></section>
+<!-- end_mod -->
+<!-- start_mod : generaltextotitular_xk9w7 --> 
+<section id="id_a8c0d" class="relative" style="background-color:transparent"><span id="a8c0d"></span><div class="container max-w-7xl px-6 2xl:px-0 py-10 lg:py-20 mx-auto"><div class="flex flex-col items-center max-w-2xl mx-auto text-center"><div style="color:#111827"></div></div><div class="wysiwyg lg:text-lg max-w-4xl mx-auto mt-10" style="color:#111827"><p style="text-align:center;">“Sólo hay algo peor que formar a tus empleados y que se vayan. No formarlos para que se queden”<br>- Henry Ford -<br> </p></div></div></section>
+<!-- end_mod -->
+<!-- start_mod : formulariodecontacto_2pbx5 --> 
+<section id="id_bccc0" class="relative"><span id="bccc0"></span><div class="relative py-20 overflow-hidden" style="background-color:transparent" data-aos="zoom-in" data-aos-duration="500"><div class="absolute top-0 left-0 h-full w-full bg-black bg-opacity-70 z-10"></div><img data-src="/cms/uploads/Rectangle_14_1_1200_s8ydb5_1__1.webp" alt="Contacto K-Tuin" class="absolute left-0 top-0 w-full h-full object-cover object-center lazyload"><div class="outlineBrandText text-white absolute w-full z-20 text-5xl">K-tuin</div><div class="relative px-4 lg:px-0 z-20"><div class="flex flex-col items-center max-w-2xl mx-auto text-center my-4"><H2 class="text-4xl lg:text-5xl font-bold text-white" c-if="titulo">¿Cómo podemos ayudarte?</H2></div><form id="uvvp3jg3h" class="js-single-submit-form text-white lg:text-lg max-w-2xl mx-auto flex flex-wrap" method="post"><div class="w-full lg:w-1/2 p-4"><label> Nombre <span class="text-main-color">*</span><input type="text" name="cocoForm[nombre]" required="" placeholder="Nombre" class="w-full bg-white text-gray-800 placeholder-gray-400 border border-gray-400 rounded-xl focus:outline-none px-6 py-2"></label></div><div class="w-full lg:w-1/2 p-4"><label> Apellidos <span class="text-main-color">*</span><input type="text" name="cocoForm[apellidos]" required="" placeholder="Apellidos" class="w-full bg-white text-gray-800 placeholder-gray-400 border border-gray-400 rounded-xl focus:outline-none px-6 py-2"></label></div><div class="w-full lg:w-1/2 p-4"><label> Nombre de Empresa <span class="text-main-color">*</span><input type="text" name="cocoForm[empresa]" required="" placeholder="Nombre de Empresa" class="w-full bg-white text-gray-800 placeholder-gray-400 border border-gray-400 rounded-xl focus:outline-none px-6 py-2"></label></div><div class="w-full lg:w-1/2 p-4"><label> CIF/NIF <input type="text" name="cocoForm[cif]" placeholder="CIF/NIF" class="w-full bg-white text-gray-800 placeholder-gray-400 border border-gray-400 rounded-xl focus:outline-none px-6 py-2"></label></div><div class="w-full lg:w-1/2 p-4"><label> Teléfono de empresa <span class="text-main-color">*</span><div class="relative w-full"><input type="tel" name="cocoForm[telefono]" required="" placeholder="Teléfono de empresa" class="text-black opacity-0 absolute top-0 left-0 w-full" data-iti-storage-for="telefono"></div><input id="telefono" type="tel" placeholder="Teléfono (obligatorio)" required="" autocomplete="off" class="w-full bg-white text-gray-800 placeholder-gray-400 border border-gray-400 rounded-xl focus:outline-none px-6 py-2 initialize-iti"><link rel="stylesheet" href="https://www.k-tuin.com/empresas/template/estandar/modulos/contactomduloiti_ixqg1/assets/intlTellnput.min.css"/><script type="text/javascript" src="https://www.k-tuin.com/empresas/template/estandar/modulos/contactomduloiti_ixqg1/assets/intlTellnput.min.js"></script><script>
+function generateInstanceForITIInputs() {
+    if (typeof window.intlTelInput === 'undefined') return;
+    if (typeof window.loadOnceITI === 'undefined') {
+        window.intlTelInputGlobals.loadUtils(window.FORCE_DOMAIN_BASE + '/template/estandar/modulos/contactomduloiti_ixqg1/assets/utils.js');
+        window.loadOnceITI = 'loaded';
+    }
+    document.querySelectorAll('.initialize-iti').forEach(function (elem) {
+        if (elem.classList.contains('iti-initialized')) return;
+        var iti = window.intlTelInput(elem, {
+            initialCountry: 'es',
+            preferredCountries: ['es', 'de', 'gb', 'fr']
+        });
+        var storage = document.querySelector('[data-iti-storage-for="' + elem.id + '"]');
+        if (storage) {
+            function sync() {
+                if (iti.isValidNumber()) {
+                    elem.classList.remove('border-red-800');
+                    storage.value = iti.getNumber();
+                } else {
+                    elem.classList.add('border-red-800');
+                    storage.value = '';
+                }
+            }
+            elem.addEventListener('countrychange', sync);
+            elem.addEventListener('change', sync);
+            elem.addEventListener('keyup', sync);
+        }
+        elem.classList.remove('initialize-iti');
+        elem.classList.add('iti-initialized');
+    });
+}
+</script></label></div><div class="w-full lg:w-1/2 p-4"><label> eMail de empresa <span class="text-main-color">*</span><input type="email" name="cocoForm[email]" required="" placeholder="eMail de empresa" class="w-full bg-white text-gray-800 placeholder-gray-400 border border-gray-400 rounded-xl focus:outline-none px-6 py-2"></label></div><div class="w-full lg:w-1/2 p-4"><label> Provincia <span class="text-main-color">*</span><select name="cocoForm[provincia]" required="" class="_provincia w-full bg-white text-gray-800 placeholder-gray-400 border border-gray-400 rounded-xl focus:outline-none px-6 py-2"><option value="" selected="" disabled=""> - Seleccionar -</option><option value="A Coruña">A Coruña</option><option value="Álava">Álava</option><option value="Albacete">Albacete</option><option value="Alicante">Alicante</option><option value="Almería">Almería</option><option value="Asturias">Asturias</option><option value="Ávila">Ávila</option><option value="Badajoz">Badajoz</option><option value="Barcelona">Barcelona</option><option value="Bizkaia/Vizcaya">Bizkaia/Vizcaya</option><option value="Burgos">Burgos</option><option value="Cáceres">Cáceres</option><option value="Cádiz">Cádiz</option><option value="Cantabria">Cantabria</option><option value="Castellón">Castellón</option><option value="Ceuta">Ceuta</option><option value="Ciudad Real">Ciudad Real</option><option value="Córdoba">Córdoba</option><option value="Cuenca">Cuenca</option><option value="Gipuzkoa/Guipúzcoa">Gipuzkoa/Guipúzcoa</option><option value="Girona">Girona</option><option value="Granada">Granada</option><option value="Guadalajara">Guadalajara</option><option value="Huelva">Huelva</option><option value="Huesca">Huesca</option><option value="Islas Baleares">Islas Baleares</option><option value="Jaén">Jaén</option><option value="La Rioja">La Rioja</option><option value="Las Palmas">Las Palmas</option><option value="León">León</option><option value="Lleida/Lérida">Lleida/Lérida</option><option value="Lugo">Lugo</option><option value="Madrid">Madrid</option><option value="Málaga">Málaga</option><option value="Melilla">Melilla</option><option value="Murcia">Murcia</option><option value="Navarra">Navarra</option><option value="Ourense">Ourense</option><option value="Palencia">Palencia</option><option value="Pontevedra">Pontevedra</option><option value="Salamanca">Salamanca</option><option value="Segovia">Segovia</option><option value="Sevilla">Sevilla</option><option value="Soria">Soria</option><option value="Sta. Cruz Tenerife">Sta. Cruz Tenerife</option><option value="Tarragona">Tarragona</option><option value="Teruel">Teruel</option><option value="Toledo">Toledo</option><option value="Valencia">Valencia</option><option value="Valladolid">Valladolid</option><option value="Zamora">Zamora</option><option value="Zaragoza">Zaragoza</option><option value="- Otra -">- Otra -</option></select></label></div><div class="w-full lg:w-1/2 p-4"><label> Población <span class="text-main-color">*</span><select name="cocoForm[poblacion]" required="" class="_poblacion w-full bg-white text-gray-800 placeholder-gray-400 border border-gray-400 rounded-xl focus:outline-none px-6 py-2"><option value="" selected="" disabled=""> - Seleccionar -</option></select></label></div><div><link href="https://www.k-tuin.com/empresas/template/estandar/modulos/otrosscriptdeprovinciasypoblaciones_jwqq9k/assets/tom-select.css" rel="stylesheet"><script src="https://www.k-tuin.com/empresas/template/estandar/modulos/otrosscriptdeprovinciasypoblaciones_jwqq9k/assets/tom-select.js"></script><style type="text/css" media="all">
+        /* 1. Caja del selector (entrada principal) */
+        .ts-control {
+            border: 0;
+            padding: .3rem 0;
+            background-color: #ffffff !important;
+            display: flex;
+            align-items: center;
+        }
+  </style><script type="text/javascript" charset="utf-8">
+        document.addEventListener("DOMContentLoaded", () => {
+          // 1. Localizar todos los selectores de provincias en cualquier formulario
+          const provinciasSelects = document.querySelectorAll('select[name*="provincia"], select._provincia');
+        
+          provinciasSelects.forEach((selectProv) => {
+            // Convertir el selector de provincia en un selector con buscador
+            const tsProvincia = new TomSelect(selectProv, {
+              create: false,
+              placeholder: 'Selecciona una provincia...'
+            });
+            
+            // Buscar el selector de población dentro del mismo formulario
+            const form = selectProv.closest('form') || selectProv.parentElement;
+            const selectPoblacion = form.querySelector('select[name*="poblacion"], select._poblacion');
+            
+            let tsPoblacion = null;
+            
+            if(selectPoblacion) {
+                tsPoblacion = new TomSelect(selectPoblacion, {
+                      create: false,
+                      placeholder: 'Selecciona una población...'
+                    });
+            }
+        
+            // Detectar selección de provincia
+            tsProvincia.on('change', (provinciaId) => {
+                console.log('cambio provincia', provinciaId)
+              if (!provinciaId) return;
+        
+              if (!selectPoblacion) return;
+        
+              // Convertir el selector de población a Tom Select si aún no lo es
+              tsPoblacion = selectPoblacion.tomselect;
+              if (!tsPoblacion) {
+                tsPoblacion = new TomSelect(selectPoblacion, {
+                  create: false,
+                  placeholder: 'Selecciona una población...'
+                });
+              }
+        
+              // Limpiar opciones anteriores y deshabilitar mientras carga
+              tsPoblacion.clear();
+              tsPoblacion.clearOptions();
+              tsPoblacion.disable();
+        
+              // Llamada a tu API
+              CmsApi.hook('/hooks/otrosscriptdeprovinciasypoblaciones_jwqq9k/', { provincia: provinciaId })
+                .then((r) => {
+                  if (r && r.success && Array.isArray(r.data)) {
+                    // Mapeo flexible por si r.data trae strings o un array de objetos ({id, nombre})
+                    const opciones = r.data.map((item) => ({
+                      value: item.name,
+                      text: item.name
+                    }));
+        
+                    tsPoblacion.addOptions(opciones);
+                    tsPoblacion.enable();
+                  }
+                })
+                .catch((error) => {
+                  console.error('Error al cargar poblaciones:', error);
+                  tsPoblacion.enable();
+                });
+            });
+          });
+        });
+  </script></div><div class="w-full p-4"><label> Mejor momento para llamar <select name="cocoForm[horario]" class="w-full bg-white text-gray-800 placeholder-gray-400 border border-gray-400 rounded-xl focus:outline-none px-6 py-2"><option value="" selected="" disabled=""> - Seleccionar -</option><option value="08:00 - 11:00 h.">08:00 - 11:00 h.</option><option value="11:00 - 14:00 h.">11:00 - 14:00 h.</option><option value="14:00 - 17:00 h.">14:00 - 17:00 h.</option><option value="17:00 - 20:00 h.">17:00 - 20:00 h.</option></select></label></div><div class="w-full p-4"><label> Descripción <span class="text-main-color">*</span><textarea name="cocoForm[comentario]" cols="30" rows="5" placeholder="Comentario" class="w-full bg-white text-gray-800 placeholder-gray-400 border border-gray-400 rounded-xl resize-none focus:outline-none px-6 py-2" required="true"></textarea></label></div><label class="w-full py-1 px-4 flex items-center cursor-pointer"><input name="cocoForm[newsletter]" type="checkbox" class="form-radio checkbox-round"><span class="text-xs sm:text-sm ml-3">Acepto el envio de Newsletters con fines comerciales</span></label><label class="w-full py-1 px-4 flex items-center cursor-pointer"><input required="" type="checkbox" class="form-radio checkbox-round"><span class="text-xs sm:text-sm ml-3">Acepto las <a target="_blank" href="/aviso-legal/" class="underline">condiciones generales</a> y <a target="_blank" href="/politica-de-privacidad/" class="underline">la política de privacidad</a></span></label><div class="flex justify-center mt-8 w-full"><button type="submit" class="inline-block bg-main-color hover:bg-white text-white hover:text-main-color lg:text-lg font-semibold rounded-xl mx-auto transition3s px-6 py-3 w-full"> Contacto</button></div><input name="cocoForm[form]" type="hidden" value="uvvp3jg3h"><div><div class="field seturecap" aria-hidden="true"><label for="full_user_name_uvvp3jg3h">No rellenes este campo</label><input type="text" id="full_user_name_uvvp3jg3h" name="cocoForm[full_user_name]" placeholder="Nombre" class="form-control" tabindex="-1" autocomplete="off"><style>.seturecap {position: absolute;width: 1px;height: 1px;padding: 0;margin: -1px;overflow: hidden;clip: rect(0, 0, 0, 0);white-space: nowrap;border-width: 0;}</style></div></div></form></div></div></section>
+<!-- end_mod -->
+<!-- start_mod : categoriassuscribetenewsletter_uo7wvm --> 
+<section id="id_42fd1" class="relative"><span id="42fd1"></span><div class="container max-w-7xl px-6 2xl:px-0 py-10 lg:py-20 mx-auto"><div class="flex flex-col items-center max-w-4xl mx-auto"><img data-src="/cms/uploads/webp/img_1_1-600-s9ziu7.webp" alt="Memoji de un hombre con gafas y moño asomándose tras un MacBook, transmitiendo cercanía y soporte digital." class="h-52 object-contain object-center lazyload"><div class="text-xl lg:text-2xl customGradientText text-center mt-4"> Bienvenidos al newsletter</div><div style="color:black"><H2 class="text-4xl lg:text-6xl font-bold text-center mt-4" c-if="titulo">Suscríbete y descubre nuestras promociones y noticias</H2></div><a class="bg-main-color hover:bg-white text-white hover:text-main-color text-lg rounded-lg border border-main-color transition3s px-3 py-2 mt-8 lg:mt-12" href="https://www.k-tuin.com/gestion-suscripciones?empresas_suscribed=Yes">¡Suscríbete!</a></div></div></section>
+<!-- end_mod -->    
+<!-- start_mod : custom-footer-twig --> 
+<div></div></div><div></div><div class="bg-gray-100"><div class="relative container mx-auto max-w-7xl px-6 2xl:px-0 block pt-10 pb-20 z-10"><div class="flex flex-wrap -mx-4 -mb-4"></div></div></div><footer class="relative bg-footer text-white"><div class="bg-black absolute top-0 left-0 w-full h-full opacity-100 z-0"></div><div class="relative container mx-auto max-w-7xl px-6 2xl:px-0 block pt-20 pb-4 z-10"><div class="flex flex-col lg:flex-row justify-center items-center lg:items-start w-full text-center mx-auto"><span class="sr-only">K-tuin Empresas</span><img data-src="https://www.k-tuin.com/empresas/template/estandar/images/logo_footer-300-tdfjan.webp" alt="K-tuin Empresas" class="logoFooter lazyload h-24 lg:h-32 object-contain" width="150" height="150"><ul class="lg:hidden relative flex justify-center flex-wrap items-center mt-0"><li class="px-1"><a href="https://www.k-tuin.com/redirigiendo-a-whatsapp?utm_source=whatsapp&amp;utm_medium=whatsapp&amp;utm_campaign=whatsapp" target="_blank" class="block" rel="noopener"><div class="flex justify-center items-center w-8 h-8 transition2s rounded-full rrssRoundHover"><img src="https://www.k-tuin.com/empresas/template/estandar/images/whatsapp_orange.svg" alt="whatsapp" class="filter-custom bg-opacity w-6 h-6 transition2s" width="24" height="24"></div></a></li><li class="px-1"><a href="https://www.facebook.com/ktuin.es" target="_blank" class="block" rel="noopener"><div class="flex justify-center items-center w-8 h-8 transition2s rounded-full rrssRoundHover"><img src="https://www.k-tuin.com/empresas/template/estandar/images/facebook_orange.svg" alt="facebook" class="filter-custom bg-opacity w-6 h-6 transition2s" width="24" height="24"></div></a></li><li class="px-1"><a href="https://www.youtube.com/user/AppleKtuin" target="_blank" class="block" rel="noopener"><div class="flex justify-center items-center w-8 h-8 transition2s rounded-full rrssRoundHover"><img src="https://www.k-tuin.com/empresas/template/estandar/images/youtube_orange.svg" alt="youtube" class="filter-custom bg-opacity w-6 h-6 transition2s" width="24" height="24"></div></a></li><li class="px-1"><a href="https://www.linkedin.com/company/k-tuin-empresas/" target="_blank" class="block" rel="noopener"><div class="flex justify-center items-center w-8 h-8 transition2s rounded-full rrssRoundHover"><img src="https://www.k-tuin.com/empresas/template/estandar/images/linkedin_orange.svg" alt="linkedin" class="filter-custom bg-opacity w-6 h-6 transition2s" width="24" height="24"></div></a></li></ul></div><div class="flex flex-wrap"><div class="w-full flex flex-col items-center mt-6 md:mt-10 lg:mt-0"><div class="flex flex-wrap w-full justify-around text-left"><div class="flex flex-col md:flex-row justify-center w-1/2 md:w-full mb-4 mt-0 md:mt-6 px-4 md:px-0"><div c-option="{relationsDepth:0,ignoreSchema:1}" class="my-1 md:my-0 flex items-center"><a href="https://www.k-tuin.com/aviso-legal" class="hover:text-main-color-light hover:underline transition2s">Aviso Legal</a><span class="mx-4 hidden md:block">|</span></div><div c-option="{relationsDepth:0,ignoreSchema:1}" class="my-1 md:my-0 flex items-center"><a href="https://www.k-tuin.com/politica-de-privacidad" class="hover:text-main-color-light hover:underline transition2s">Política de privacidad</a><span class="mx-4 hidden md:block">|</span></div><div c-option="{relationsDepth:0,ignoreSchema:1}" class="my-1 md:my-0 flex items-center"><a href="https://www.k-tuin.com/empresas/politica-de-cookies/" class="hover:text-main-color-light hover:underline transition2s">Política de cookies</a></div></div></div><div class="w-full hidden lg:flex justify-center mb-4 mt-4"><ul class="relative flex items-center justify-end w-full lg:w-auto -mx-1"><li class="px-1"><a href="https://www.k-tuin.com/redirigiendo-a-whatsapp?utm_source=whatsapp&amp;utm_medium=whatsapp&amp;utm_campaign=whatsapp" target="_blank" class="block" rel="noopener"><div class="flex justify-center items-center w-10 h-10 transition2s rounded-full rrssRoundHover"><img src="https://www.k-tuin.com/empresas/template/estandar/images/whatsapp_orange.svg" alt="whatsapp" class="filter-custom bg-opacity w-7 h-7 transition2s" width="24" height="24"></div></a></li><li class="px-1"><a href="https://www.facebook.com/ktuin.es" target="_blank" class="block" rel="noopener"><div class="flex justify-center items-center w-10 h-10 transition2s rounded-full rrssRoundHover"><img src="https://www.k-tuin.com/empresas/template/estandar/images/facebook_orange.svg" alt="facebook" class="filter-custom bg-opacity w-7 h-7 transition2s" width="24" height="24"></div></a></li><li class="px-1"><a href="https://www.youtube.com/user/AppleKtuin" target="_blank" class="block" rel="noopener"><div class="flex justify-center items-center w-10 h-10 transition2s rounded-full rrssRoundHover"><img src="https://www.k-tuin.com/empresas/template/estandar/images/youtube_orange.svg" alt="youtube" class="filter-custom bg-opacity w-7 h-7 transition2s" width="24" height="24"></div></a></li><li class="px-1"><a href="https://www.linkedin.com/company/k-tuin-empresas/" target="_blank" class="block" rel="noopener"><div class="flex justify-center items-center w-10 h-10 transition2s rounded-full rrssRoundHover"><img src="https://www.k-tuin.com/empresas/template/estandar/images/linkedin_orange.svg" alt="linkedin" class="filter-custom bg-opacity w-7 h-7 transition2s" width="24" height="24"></div></a></li></ul></div></div></div></div><div class="relative bg-black text-white text-xs lg:text-base w-full flex justify-center items-center text-center px-6 py-4"><div class="absolute top-0 mx-auto w-3/4 border-t border-gray-200"></div><div class="relative z-10">Copyright © K-tuin, 2026. Todos los derechos reservados.<span class="hidden sm:inline-block">-</span> Made with <span class="text-xl corazon">♥</span> by <a href="https://www.cocosolution.com" target="_blank" rel="noopener">Coco Solution</a>- Powered by <a href="https://www.acaisuite.com" target="_blank" rel="noopener">Acai</a></div></div></footer><script src="/template/estandar/modulos/micesta_2t58eu/assets/cesta_class.js?timestamp=1790812862"></script><style>
+    :root{
+        --main-bg-color:#EB1917 !important;
+        --main-bg-color-light:#EE423F !important;
+        --main-bg-color-dark:#1e1e1e !important;
+    }
+</style>
+<!-- end_mod -->    <script src='https://www.k-tuin.com/empresas/template/estandar/js/minified/vue.min-hshs86l9o.js' ></script><script src='https://www.k-tuin.com/empresas/template/estandar/js/minified/sweetalert2@8-hshs86l9o.js' ></script><script src='https://www.k-tuin.com/empresas/template/estandar/js/minified/moment-with-locales.min-hshs86l9o.js' ></script><script src='https://www.k-tuin.com/empresas/template/estandar/js/minified/tiny-slider-hshs86l9o.js' ></script><script src='https://www.k-tuin.com/empresas/template/estandar/js/minified/lazysizes.min-hshs86l9o.js' ></script><script src='https://www.k-tuin.com/empresas/template/estandar/js/minified/glightbox.min-hshs86l9o.js' ></script>	<link rel="stylesheet" href="https://www.k-tuin.com/empresas/template/estandar/css/minified/tiny-slider-hshtfpb3y.css">	<link rel="stylesheet" href="https://www.k-tuin.com/empresas/template/estandar/css/minified/glightbox.min-hshtfpb3y.css">	<link rel="stylesheet" href="https://www.k-tuin.com/empresas/template/estandar/css/minified/animate.min-hshtfpb3y.css">
+    <script>var MODULES_LOADED = ["custom-header","custom-header-twig","generalestilosenlinea_a79yr","generalbuscador_ebphml","generaliconos_6dpnu8","generalesbannerpublicitario_rb9jji","textorecuadros_d7c6gg","generaltarjetaspersonalizables_qyjro","generaltextotitular_xk9w7","iniciotarjetasinformativas_q5ivta","inicioformaciones_daxyp","formulariodecontacto_2pbx5","contactomduloiti_ixqg1","otrosscriptdeprovinciasypoblaciones_jwqq9k","categoriassuscribetenewsletter_uo7wvm","custom-footer","custom-footer-twig"];</script><link rel="stylesheet" href="https://www.k-tuin.com/empresas/template/estandar/modulos/custom-header-twig/minified/style-hshtfpb3y.css"><link rel="stylesheet" href="https://www.k-tuin.com/empresas/template/estandar/modulos/generalbuscador_ebphml/minified/style-hshtm2w0h.css"><link rel="stylesheet" href="https://www.k-tuin.com/empresas/template/estandar/modulos/generaltarjetaspersonalizables_qyjro/minified/style-hshtfpb3y.css"><link rel="stylesheet" href="https://www.k-tuin.com/empresas/template/estandar/modulos/contactomduloiti_ixqg1/minified/style-hshtm2vvh.css"><script src="https://www.k-tuin.com/empresas/template/estandar/modulos/custom-header-twig/minified/script-hshtfpb3y.js"></script><script src="https://www.k-tuin.com/empresas/template/estandar/modulos/generalbuscador_ebphml/minified/script-hshtm2w0h.js"></script><script src="https://www.k-tuin.com/empresas/template/estandar/modulos/formulariodecontacto_2pbx5/minified/script-hshtm2wdk.js"></script><script src="https://www.k-tuin.com/empresas/template/estandar/modulos/contactomduloiti_ixqg1/minified/script-hshtm2vvh.js"></script> 
+         	<link rel='stylesheet' href='/custom-builder-style.css?timestamp=1790608596'>
+  
+         
+
+         	<script src='/custom-builder-javascript.js?timestamp=1790608596'></script>
+  
+         
+        
+    <script defer data-cache src="https://www.k-tuin.com/empresas/template/estandar/js/minified/cookies-hshs86l9o.js"></script>
+</body>
+</html>
+
+

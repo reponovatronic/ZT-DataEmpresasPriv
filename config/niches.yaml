@@ -1,0 +1,32 @@
+niches:
+
+  leasing_laptops:
+    enabled: true
+    name: "Leasing y alquiler de laptops"
+    country: "Perú"
+
+    keywords:
+      - "alquiler de laptops empresas Perú"
+      - "leasing de laptops Perú"
+      - "renting de laptops Perú"
+      - "arrendamiento de laptops Perú"
+      - "alquiler de computadoras empresas Perú"
+      - "alquiler de equipos de cómputo Perú"
+      - "leasing tecnológico Perú"
+      - "renting tecnológico Perú"
+      - "alquiler de notebooks empresas Lima"
+      - "alquiler laptop corporativo Perú"
+
+    commercial_interest:
+      - "reparación de laptops"
+      - "mantenimiento preventivo"
+      - "mantenimiento correctivo"
+      - "repuestos"
+      - "SSD"
+      - "memorias RAM"
+      - "baterías"
+      - "pantallas"
+      - "teclados"
+      - "cargadores"
+      - "soporte técnico"
+      - "servicio técnico tercerizado"
